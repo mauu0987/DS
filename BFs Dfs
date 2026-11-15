@@ -1,0 +1,51 @@
+# BFS and DFS Graph Traversal
+
+# Graph using Adjacency Matrix for DFS
+graph = [
+    [0, 1, 1, 0, 0],
+    [1, 0, 0, 1, 1],
+    [1, 0, 0, 0, 1],
+    [0, 1, 0, 0, 0],
+    [0, 1, 1, 0, 0]
+]
+
+# Graph using Adjacency List for BFS
+adj = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D', 'E'],
+    'C': ['A', 'E'],
+    'D': ['B'],
+    'E': ['B', 'C']
+}
+
+# DFS using Adjacency Matrix
+def DFS(v, visited):
+    visited[v] = True
+    print(chr(v + 65), end=" ")
+
+    for i in range(5):
+        if graph[v][i] == 1 and not visited[i]:
+            DFS(i, visited)
+
+# BFS using Adjacency List
+def BFS(start):
+    visited = []
+    queue = [start]
+
+    while queue:
+        v = queue.pop(0)
+
+        if v not in visited:
+            print(v, end=" ")
+            visited.append(v)
+
+            for i in adj[v]:
+                if i not in visited:
+                    queue.append(i)
+
+# Main
+print("DFS Traversal:")
+DFS(0, [False] * 5)
+
+print("\nBFS Traversal:")
+BFS('A')
