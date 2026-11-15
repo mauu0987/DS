@@ -1,0 +1,57 @@
+# Linear Search
+
+
+n = int(input("Enter number of customers: "))
+arr = []
+
+for i in range(n):
+    x = int(input("Enter customer ID: "))
+    arr.append(x)
+
+key = int(input("Enter ID to search: "))
+
+found = False
+
+for i in range(n):
+    if arr[i] == key:
+        print("ID found at position:", i + 1)
+        found = True
+        break
+
+if not found:
+    print("ID not found")
+    
+# Binary Search
+
+n = int(input("Enter number of customers: "))
+arr = []
+
+for i in range(n):
+    x = int(input("Enter customer ID: "))
+    arr.append(x)
+
+arr.sort()
+print("Sorted IDs:", arr)
+
+key = int(input("Enter ID to search: "))
+
+low = 0
+high = n - 1
+found = False
+
+while low <= high:
+    mid = (low + high) // 2
+
+    if arr[mid] == key:
+        print("ID found at position:", mid + 1)
+        found = True
+        break
+
+    elif key < arr[mid]:
+        high = mid - 1
+
+    else:
+        low = mid + 1
+
+if not found:
+    print("ID not found")
