@@ -1,0 +1,40 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.left = self.right = None
+
+def build(exp):
+    s = []
+    for ch in exp[::-1]:
+        n = Node(ch)
+        if ch in "+-*/":
+            n.left = s.pop()
+            n.right = s.pop()
+        s.append(n)
+    return s[0]
+
+def postorder(root):
+    s1, s2 = [root], []
+    while s1:
+        n = s1.pop()
+        s2.append(n)
+        if n.left: s1.append(n.left)
+        if n.right: s1.append(n.right)
+    while s2:
+        print(s2.pop().data, end=" ")
+
+def delete(root):
+    if root:
+        delete(root.left)
+        delete(root.right)
+        root.left = root.right = None
+
+exp = "+--a*bc/def"
+root = build(exp)
+
+print("Postorder:")
+postorder(root)
+
+delete(root)
+root = None
+print("\nTree Deleted")
