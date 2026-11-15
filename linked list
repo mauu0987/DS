@@ -1,0 +1,125 @@
+class Node:
+    def __init__(self, roll, name, marks):
+        self.roll = roll
+        self.name = name
+        self.marks = marks
+        self.next = None
+
+
+class StudentLinkedList:
+    def __init__(self):
+        self.head = None
+
+    def addStudent(self, roll, name, marks):
+        new_node = Node(roll, name, marks)
+        if self.head == None:
+            self.head = new_node
+        else:
+            current = self.head
+            while current.next:
+                current = current.next
+            current.next = new_node
+            print("Record added")
+
+    def searchStuddent(self, roll):
+        current = self.head
+        while current:
+            if current.roll == roll:
+                print("Student record found.")
+                return
+            else:
+                current = current.next
+        print("Student record not found.")
+
+    def delete(self, roll):
+        current = self.head
+        prev = None
+        while current:
+            if current.roll == roll:
+                if prev:
+                    prev.next = current.next
+                else:
+                    self.head = current.next
+                print("Student record deleted.")
+                return
+            else:
+                prev = current
+                current = current.next
+        print("Student record not found.")
+
+    def update(self, roll, new_name, new_marks):
+        current = self.head
+        while current:
+            if current.roll == roll:
+                current.name = new_name
+                current.marks = new_marks
+                print("Record updated")
+                return
+            current = current.next
+        print("Record not found.")
+
+    def display(self, sort_key="roll", ascending=True):
+        student = []
+        current = self.head
+        while current != None:
+            student.append((current.roll, current.name, current.marks))
+            current = current.next
+
+        if sort_key == "roll":
+            student.sort(key=lambda x: x[0], reverse=not ascending)
+        elif sort_key == "marks":
+            student.sort(key=lambda x: x[2], reverse=not ascending)
+
+        if not student:
+            print("No records to display")
+            return
+
+        print("\nStudent Records")
+        for s in student:
+            print(f"Roll no.:{s[0]}, Name: {s[1]}, Marks: {s[2]}")
+
+    def menu(self):
+        while True:
+            print("-----Menu Drive-----")
+            print("1. Add new student details")
+            print("2. Search student details")
+            print("3. Delete student detail")
+            print("4. Update student detail")
+            print("5. Display student detail")
+            print("6. Exit")
+
+            choice = int(input("Enter your choice: "))
+
+            if choice == 1:
+                roll = int(input("Enter roll number: "))
+                name = input("Enter name: ")
+                marks = int(input("Enter total marks: "))
+                self.addStudent(roll, name, marks)
+
+            elif choice == 2:
+                roll = int(input("Enter roll number to search: "))
+                self.searchStuddent(roll)
+
+            elif choice == 3:
+                roll = int(input("Enter roll number to delete record: "))
+                self.delete(roll)
+
+            elif choice == 4:
+                roll = int(input("Enter roll number: "))
+                new_name = input("Enter updated name: ")
+                new_marks = int(input("Enter updated marks: "))
+                self.update(roll, new_name, new_marks)
+
+            elif choice == 5:
+                self.display("roll", True)
+
+            elif choice == 6:
+                print("Exit from Menu Drive")
+                break
+
+            else:
+                print("Invalid choice")
+
+
+obj = StudentLinkedList()
+obj.menu()
