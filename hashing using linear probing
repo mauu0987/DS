@@ -1,0 +1,69 @@
+# Hash Table using Linear Probing
+
+size = 10
+table = [None] * size
+
+# Insert
+def insert(key):
+    index = key % size
+    for i in range(size):
+        pos = (index + i) % size
+        if table[pos] is None:
+            table[pos] = key
+            print("Inserted")
+            return
+    print("Hash table is full")
+
+# Search
+def search(key):
+    index = key % size
+    for i in range(size):
+        pos = (index + i) % size
+        if table[pos] == key:
+            print("Key found at index", pos)
+            return
+        if table[pos] is None:
+            break
+    print("Key not found")
+
+# Delete
+def delete(key):
+    index = key % size
+    for i in range(size):
+        pos = (index + i) % size
+        if table[pos] == key:
+            table[pos] = "DELETED"
+            print("Deleted")
+            return
+        if table[pos] is None:
+            break
+    print("Key not found")
+
+# Display
+def display():
+    print(table)
+
+while True:
+    print("\n1.Insert  2.Search  3.Delete  4.Display  5.Exit")
+    ch = int(input("Enter choice: "))
+
+    if ch == 1:
+        key = int(input("Enter key: "))
+        insert(key)
+
+    elif ch == 2:
+        key = int(input("Enter key: "))
+        search(key)
+
+    elif ch == 3:
+        key = int(input("Enter key: "))
+        delete(key)
+
+    elif ch == 4:
+        display()
+
+    elif ch == 5:
+        break
+
+    else:
+        print("Invalid choice")
