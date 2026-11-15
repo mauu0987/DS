@@ -1,0 +1,40 @@
+# Event Processing using Queue
+
+queue = []
+
+while True:
+    print("\n1. Add Event")
+    print("2. Process Event")
+    print("3. Display Events")
+    print("4. Cancel Event")
+    print("5. Exit")
+
+    choice = int(input("Enter choice: "))
+
+    if choice == 1:
+        event = input("Enter event: ")
+        queue.append(event)
+        print("Event added")
+
+    elif choice == 2:
+        if queue:
+            print("Processed Event:", queue.pop(0))
+        else:
+            print("Queue is empty")
+
+    elif choice == 3:
+        print("Pending Events:", queue)
+
+    elif choice == 4:
+        event = input("Enter event to cancel: ")
+        if event in queue:
+            queue.remove(event)
+            print("Event cancelled")
+        else:
+            print("Event not found")
+
+    elif choice == 5:
+        break
+
+    else:
+        print("Invalid choice")
